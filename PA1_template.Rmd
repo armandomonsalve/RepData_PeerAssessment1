@@ -1,5 +1,4 @@
 ---
-title: "Untitled"
 author: "Armando Monsalve"
 date: "6/7/2020"
 output: html_document
@@ -8,16 +7,15 @@ output: html_document
 Peer-graded Assignment: Course Project 1
 ========================================
 
-## Libraries
-
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, results="hide"}
+# Libraries
 library(dplyr)
 library(lubridate)
 library(ggplot2)
 ```
 
 
-## Loading and preprocessing the data
+### Loading and preprocessing the data
 
 ```{r}
 # Loading data
@@ -49,7 +47,7 @@ data_p1 %>%
         arrange(desc(Count))
 ```
 
-Intervals within days are unique (OK)
+*Intervals within days are unique (OK)*
 
 
 Transforming date columns to date format using lubridate::ymd function
@@ -65,9 +63,10 @@ data_p1$date %>%
 ```
 
 
-## What is the mean of total number of steps taken per day?
+### What is the mean of total number of steps taken per day?
 
 ```{r}
+# Histogram of total steps per interval across all days
 data_p1 %>%
         group_by(date) %>%
         summarize(SumSteps = sum(steps, na.rm = T)) %>%
@@ -79,14 +78,14 @@ Mean and Median of total of steps per day:
 
 ```{r}
 # Mean
-print("Mean")
 (data_p1 %>%
         group_by(date) %>%
         summarize(SumSteps = sum(steps, na.rm = T)))$SumSteps %>%
         mean()
+```
 
+```{r}
 # Median
-print("Median")
 (data_p1 %>%
         group_by(date) %>%
         summarize(SumSteps = sum(steps, na.rm = T)))$SumSteps %>%
@@ -104,7 +103,7 @@ data_p1 %>%
 ```
 
 
-## What is the average daily activity pattern?
+### What is the average daily activity pattern?
 
 ```{r}
 data_p1 %>%
@@ -135,7 +134,7 @@ data_p1 %>%
 The 835 5-min interval across all days has the highest number of steps on average.
 
 
-## Imputing missing values
+### Imputing missing values
 
 1. Calculating how many NA values we have:
 
@@ -253,7 +252,7 @@ data_p1_imp %>%
 The differences between these two data sets for mean and median are essentially on the mean value since it went from 9354 to 9504. Moreover, on the median value, it stayed the same (10395). Going further, the minimum value changed from 0 to 40, but since the most important quartiles stayed the same I consider that the imputation didn't add bias to our data.
 
 
-## Are there differences in activity patterns between weekdays and weekends?
+### Are there differences in activity patterns between weekdays and weekends?
 
 ```{r}
 # Creating a factor variable to categorize each day as "weekday" or "weekend"
